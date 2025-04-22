@@ -17,6 +17,11 @@ export default function ProductDetailPage() {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
+        const formatFirebaseDate = (timestamp) => {
+            if (!timestamp) return 'N/A';
+            if (timestamp.toDate) return format(timestamp.toDate(), 'MMM dd, yyyy HH:mm');
+            return format(new Date(timestamp), 'MMM dd, yyyy HH:mm');
+          };
         // Fetch product
         const productDoc = await getDoc(doc(db, 'products', id));
         if (productDoc.exists()) {
